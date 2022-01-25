@@ -14,8 +14,10 @@ export default function MyAssets() {
     loadNFTs();
   }, []);
 
-  const nftAddress = process.env.nftAddress;
-  const nftMarketAddress = process.env.nftMarketAddress;
+  const nftAddress =
+    process.env.nftAddress || process.env.NEXT_PUBLIC_NFT_ADDRESS;
+  const nftMarketAddress =
+    process.env.nftMarketAddress || process.env.NEXT_PUBLIC_NFT_MARKET_ADDRESS;
 
   async function loadNFTs() {
     const web3Modal = new Web3Modal({
