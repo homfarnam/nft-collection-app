@@ -19,8 +19,10 @@ export default function CreateItem() {
   });
   const router = useRouter();
 
-  const nftAddress = process.env.nftAddress;
-  const nftMarketAddress = process.env.nftMarketAddress;
+  const nftAddress =
+    process.env.nftAddress || process.env.NEXT_PUBLIC_NFT_ADDRESS;
+  const nftMarketAddress =
+    process.env.nftMarketAddress || process.env.NEXT_PUBLIC_NFT_MARKET_ADDRESS;
 
   async function onChange(e) {
     const file = e.target.files[0];
