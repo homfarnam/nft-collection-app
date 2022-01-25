@@ -34,23 +34,31 @@ export default function CreatorDashboard() {
     const data = await marketContract.fetchItemsCreated();
 
     const items = await Promise.all(
-      data.map(async (i) => {
-        const tokenUri = await tokenContract.tokenURI(i.tokenId);
-        const meta = await axios.get(tokenUri);
-        let price = ethers.utils.formatUnits(i.price.toString(), 'ether');
-        let item = {
-          price,
-          tokenId: i.tokenId.toNumber(),
-          seller: i.seller,
-          owner: i.owner,
-          sold: i?.sold,
-          image: meta.data.image
-        };
-        return item;
-      })
+      data.map(
+        async (i: {
+          tokenId: any;
+          price: any;
+          seller: any;
+          owner: any;
+          sold: any;
+        }) => {
+          const tokenUri = await tokenContract.tokenURI(i.tokenId);
+          const meta = await axios.get(tokenUri);
+          let price = ethers.utils.formatUnits(i.price.toString(), 'ether');
+          let item = {
+            price,
+            tokenId: i.tokenId.toNumber(),
+            seller: i.seller,
+            owner: i.owner,
+            sold: i?.sold,
+            image: meta.data.image
+          };
+          return item;
+        }
+      )
     );
     /* create a filtered array of items that have been sold */
-    const soldItems = items.filter((i) => i?.sold);
+    const soldItems = items.filter((i: { sold: any }) => i?.sold);
     console.log('items: ', items);
     setSold(soldItems);
     setNfts(items);
