@@ -43,14 +43,14 @@ export default function CreatorDashboard() {
           tokenId: i.tokenId.toNumber(),
           seller: i.seller,
           owner: i.owner,
-          sold: i.sold,
+          sold: i?.sold,
           image: meta.data.image
         };
         return item;
       })
     );
     /* create a filtered array of items that have been sold */
-    const soldItems = items.filter((i) => i.sold);
+    const soldItems = items.filter((i) => i?.sold);
     console.log('items: ', items);
     setSold(soldItems);
     setNfts(items);
